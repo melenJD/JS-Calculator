@@ -28,29 +28,31 @@ function calc() {
 
   const inputArray = inputText.split(LAST_SYMBOL);
 
-  switch(LAST_SYMBOL) {
-    case '+':
-      if(inputArray[1] === '')
-        return parseInt(inputArray[0]);
-      return parseInt(inputArray[0]) + parseInt(inputArray[1]);
-    case '-':
-      const temp = IS_POSITIVE ? parseInt(inputArray[0]) : parseInt(inputArray[1]) * -1;
-      const lastPoint = inputText.lastIndexOf('-');
-      const secondPoint = inputText.indexOf('-', 2);
-      if(lastPoint === secondPoint) {
-        return temp - parseInt(inputArray[inputArray.length-1]);
-      }else{
-        return temp - parseInt(inputArray[inputArray.length-1] * -1);
-      }
-    case '*':
-      if(inputArray[1] === '')
-        return parseInt(inputArray[0]);
-      return parseInt(inputArray[0]) * parseInt(inputArray[1]);
-    case '/':
-      if(inputArray[1] === '')
-        return parseInt(inputArray[0]);
-      return parseInt(inputArray[0]) / parseInt(inputArray[1]);
-  }
+  return eval(inputText);
+
+  // switch(LAST_SYMBOL) {
+  //   case '+':
+  //     if(inputArray[1] === '')
+  //       return parseInt(inputArray[0]);
+  //     return parseInt(inputArray[0]) + parseInt(inputArray[1]);
+  //   case '-':
+  //     const temp = IS_POSITIVE ? parseInt(inputArray[0]) : parseInt(inputArray[1]) * -1;
+  //     const lastPoint = inputText.lastIndexOf('-');
+  //     const secondPoint = inputText.indexOf('-', 2);
+  //     if(lastPoint === secondPoint) {
+  //       return temp - parseInt(inputArray[inputArray.length-1]);
+  //     }else{
+  //       return temp - parseInt(inputArray[inputArray.length-1] * -1);
+  //     }
+  //   case '*':
+  //     if(inputArray[1] === '')
+  //       return parseInt(inputArray[0]);
+  //     return parseInt(inputArray[0]) * parseInt(inputArray[1]);
+  //   case '/':
+  //     if(inputArray[1] === '')
+  //       return parseInt(inputArray[0]);
+  //     return parseInt(inputArray[0]) / parseInt(inputArray[1]);
+  // }
 }
 
 function handleSpecial(event, text, keyboard) {
@@ -94,7 +96,12 @@ function handleSymbol(event, text) {
 
         input.value += text;
       }else if(getType(input.value[point-1]) === 'SYMBOL' && getType(input.value[point-2]) === 'NUMBER'){
-        input.value += text;
+        if(input.value[point-1] === '-') {
+          input.value = input.value.slice(0, -1);
+          input.value += '+';
+        }else{
+          input.value += text;
+        }
       }
     }else{
       if(getType(lastText) === 'SYMBOL') {
