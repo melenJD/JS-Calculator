@@ -24,35 +24,7 @@ function getType(text) {
 function calc() {
   const inputText = input.value;
 
-  IS_POSITIVE = input.value[0] === '-' ? false : true;
-
-  const inputArray = inputText.split(LAST_SYMBOL);
-
   return eval(inputText);
-
-  // switch(LAST_SYMBOL) {
-  //   case '+':
-  //     if(inputArray[1] === '')
-  //       return parseInt(inputArray[0]);
-  //     return parseInt(inputArray[0]) + parseInt(inputArray[1]);
-  //   case '-':
-  //     const temp = IS_POSITIVE ? parseInt(inputArray[0]) : parseInt(inputArray[1]) * -1;
-  //     const lastPoint = inputText.lastIndexOf('-');
-  //     const secondPoint = inputText.indexOf('-', 2);
-  //     if(lastPoint === secondPoint) {
-  //       return temp - parseInt(inputArray[inputArray.length-1]);
-  //     }else{
-  //       return temp - parseInt(inputArray[inputArray.length-1] * -1);
-  //     }
-  //   case '*':
-  //     if(inputArray[1] === '')
-  //       return parseInt(inputArray[0]);
-  //     return parseInt(inputArray[0]) * parseInt(inputArray[1]);
-  //   case '/':
-  //     if(inputArray[1] === '')
-  //       return parseInt(inputArray[0]);
-  //     return parseInt(inputArray[0]) / parseInt(inputArray[1]);
-  // }
 }
 
 function handleSpecial(event, text, keyboard) {
@@ -150,6 +122,7 @@ function handleKeyup(event) {
       LAST_SYMBOL = '';
     }
   }
+  input.value = input.value.replace(/[^*-/0-9]/gi,'')
 }
 
 function init() {

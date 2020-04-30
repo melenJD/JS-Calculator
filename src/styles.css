@@ -28,6 +28,7 @@ input {
   background-color: black;
   color: white;
   font-size: 15pt;
+  ime-mode: disabled;
 }
 
 button {
